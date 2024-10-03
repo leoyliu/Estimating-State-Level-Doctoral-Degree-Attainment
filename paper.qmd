@@ -87,8 +87,7 @@ comparison <- actual_counts %>%
 ggplot(comparison, aes(x = reorder(STATEICP, -actual_total))) +
   geom_bar(aes(y = actual_total, fill = "Actual Total"), stat = "identity", position = "dodge") +
   geom_bar(aes(y = estimated_total, fill = "Estimated Total"), stat = "identity", position = "dodge") +
-  labs(title = "Comparison of Actual and Estimated Totals by State",
-       x = "State", y = "Total Counts") +
+  labs(x = "State", y = "Total Counts") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1),legend.position = "bottom") + 
   scale_fill_manual(values = c("Actual Total" = "blue", "Estimated Total" = "red"))
 ```
