@@ -55,7 +55,7 @@ The ratio estimators approach is a method used to estimate a demographic paramet
 
 ```{r}
 #| label: fig-data-summary
-#| fig-cap: Comparison of Actual and Estimated Total Respondents by State using the Ratio Estimator Method
+#| fig-cap: Comparison of Actual and Estimated Total Respondents by State
 #| echo: false
 
 # Given: 391,171 total respondents in California
@@ -97,12 +97,10 @@ ggplot(comparison, aes(x = reorder(STATEICP, -actual_total))) +
 
 The estimated total number of respondents in each state, calculated using the ratio estimator method, may vary from the actual count for several reasons:
 
-- Assumption of Similarity: The ratio estimator operates under the assumption that the percentage of individuals holding doctoral degrees in California mirrors that of other states. However, educational attainment can differ significantly from state to state due to varying demographics, economic conditions, and educational systems. These differences contribute to inconsistencies between the estimated numbers and the actual figures.
+Firstly, the ratio estimators approach of Laplace is based on the assumption of similarity, suggesting that the proportion of doctoral degrees in California can be representative of those in other states. However, this assumption is invalid, as numerous factors influence educational achievement. For instance, states with higher GDP per capita and stronger economic conditions typically have access to better educational resources. Moreover, California boasts many higher educational institutions, which may not be the case in other states. Additionally, different states have varying population compositions, leading to discrepancies between the estimated and actual counts.
 
-- Sampling Variability: If the data used for estimation is a sample data rather than a complete population , random sampling variability will affect the calculated ratio and its accuracy.
+Additionally, sampling variability will also causes differences. If the data used in the estimation is a sample rather than a complete population census, then random sampling variability will affect the calculated ratio and the accuracy of the estimates.
 
-- Uneven Distribution: Educational attainment is not uniformly distributed across the United States. Regional policies, cultural differences, and access to higher education vary, meaning the ratio in California may not apply to other states.
-
-- Bias in the Ratio: The Laplace ratio estimator may be biased if the relationship between doctoral degree holders and the total population in one state, such as California, differs from that in other states due to unobserved factors.
+Moreover, this method have bias. The Laplace ratio method works best when the relationship between the variable of interest and the population is consistent across different groups. However, California might does not represent other states due to factors, as discussed above, which will thus causes the results will be inaccurate.
 
 In summary, assuming homogeneity in educational attainment across states when using ratio estimators can lead to differences between the estimates and actual numbers.
