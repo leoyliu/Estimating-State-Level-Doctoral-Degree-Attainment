@@ -13,6 +13,7 @@ abstract: "This document analyzes the number of respondents in each state who ha
 format: pdf
 toc: true
 number-sections: true
+bibliography: references.bib
 ---
 
 ```{r}
@@ -25,7 +26,6 @@ library(dplyr)
 library(readr)
 library(kableExtra)
 library(ggplot2)
-library(labelled)
 
 ipums_extract <- read.csv("usa_00002.csv")
 
@@ -43,9 +43,8 @@ doctoral_data <- ipums_extract %>%
   summarise(doctoral_count = n())
 ```
 
-# Instructions on How to Obtain the Data
-
-To extract and download data from [IPUMS USA](https://usa.ipums.org/usa/), began by selecting "Get Data" and proceeded to "Select Sample." Then deselected the "Default sample from each year" option and opted for the "2022 ACS" sample only. After confirming the selection, moved to the "Household" section, chose "Geographic," and selected "STATEICP." Similarly, under the "Person" section, selected "sex" and "EDUC." Next, reviewed variable choices by clicking "View Cart" and then clicked "Create Data Extract."  Set the "Data Format" to ".csv" while keeping the "Data Structure" as "Rectangular." After submitting the request,  logged in the account, waited for the email notification that the extract was ready, and downloaded the file. Eventually, unzip the data using the command `gunzip usa_00002.csv.gz` to proceed with the analysis.
+# Introduction
+This study uses R packages [@citeR] to clean and analyze the dataset, including libraries from haven [@citehaven], dplyr [@citedplyr], readr [@citereadr], kableExtra [@citeknitr], and ggplot2 [@citeggplot]. The data we used is from IPUMS [@citedata].
 
 # A Brief Overview of Ratio Estimators Approach
 
@@ -87,10 +86,12 @@ comparison <- actual_counts %>%
 ggplot(comparison, aes(x = reorder(STATEICP, -actual_total))) +
   geom_bar(aes(y = actual_total, fill = "Actual Total"), stat = "identity", position = "dodge") +
   geom_bar(aes(y = estimated_total, fill = "Estimated Total"), stat = "identity", position = "dodge") +
-  labs(x = "State", y = "Total Counts") +
+  labs(x = "State", y = "Total Counts", fill = "") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1),legend.position = "bottom") + 
   scale_fill_manual(values = c("Actual Total" = "blue", "Estimated Total" = "red"))
 ```
+
+@fig-data-summary shows the comparison between actual and estimated respondents by state. The estimated total are higher than the actual total in most states. In particular, states in the left-hand portion of the graph show a significant difference between the actual and estimated numbers, while states in the right-hand portion of the graph show much closer numbers. This visualization allows us to clearly see the difference between estimates and actuals and helps to identify which states may need to adjust their estimation methods.
 
 # Explanation of the Possible Reasons for the Differences
 
@@ -103,3 +104,17 @@ Additionally, sampling variability will also causes differences. If the data use
 Moreover, this method have bias. The Laplace ratio method works best when the relationship between the variable of interest and the population is consistent across different groups. However, California might does not represent other states due to factors, as discussed above, which will thus causes the results will be inaccurate.
 
 In summary, assuming homogeneity in educational attainment across states when using ratio estimators can lead to differences between the estimates and actual numbers.
+
+\newpage
+
+\appendix
+
+# Appendix {-}
+
+# Instructions on How to Obtain the Data
+
+To extract and download data from [IPUMS USA](https://usa.ipums.org/usa/), began by selecting "Get Data" and proceeded to "Select Sample." Then deselected the "Default sample from each year" option and opted for the "2022 ACS" sample only. After confirming the selection, moved to the "Household" section, chose "Geographic," and selected "STATEICP." Similarly, under the "Person" section, selected "sex" and "EDUC." Next, reviewed variable choices by clicking "View Cart" and then clicked "Create Data Extract."  Set the "Data Format" to ".csv" while keeping the "Data Structure" as "Rectangular." After submitting the request,  logged in the account, waited for the email notification that the extract was ready, and downloaded the file. Eventually, unzip the data using the command `gunzip usa_00002.csv.gz` to proceed with the analysis.
+
+\newpage
+
+# References
