@@ -1,4 +1,4 @@
-# Estimating-State-Level-Doctoral-Degree-Attainment
+# Estimating State Level Doctoral Degree Attainment
 
 ## Overview
 
